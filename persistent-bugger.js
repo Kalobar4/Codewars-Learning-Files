@@ -1,58 +1,66 @@
 ///Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence, which is the number of times you must multiply the digits in num until you reach a single digit.
 
+// let numString = num.toString() 
 const persistence = num => {
-  let numString = num.toString()  // starts at '999';
-  let persistenceCount = 0;
-  let initialTestResult = false;
-  // Function: Initial test of whether further recursion is needed
-  const initialTest = (str) => {
-    let str0Length = str.length;
-    let newNum0String = 1;
-    while (str0Length > 0) {
-      newNum0String *= str[str0Length - 1]
-      str0Length -= 1;
-    }
-    console.log(newNum0String, 'initial test result');
-    console.log(newNum0String.toString().length, 'initial test result length');
-    if (newNum0String.toString().length == 1) {
-      initialTestResult = true;
-      console.log(persistenceCount, 'final persistence count');
-      return persistenceCount;
-    }
-  }
-  initialTest(numString)
+  let str78 = num.toString()
+  let count = 0;
+  let test1 = false;
 
-  /// Function: Recursively calculate product of integers /increase persistence count
-  const multiply = str => {
-    let newNumString = numString[0];
-    let strLength = str.length
-    while (strLength > 1) {
-      newNumString *= str[strLength - 1]
-      strLength -= 1;
+  if (str78.length === 1) {
+    test1 = true;
+  }
+
+  const multiplyDigits = str => {
+    if (test1 === true) { return };
+    count++
+    let product = 1
+    let length = str.length
+    while (length > 0) {
+      product *= str[length - 1]
+      length -= 1;
     }
-    persistenceCount += 1
-    console.log(newNumString, 'multiplication result');
-    console.log(persistenceCount, 'persistence count')
-    if (newNumString.toString().length === 1) {
-      return persistenceCount;
+    if (product < 10) {
+      console.log(count)
+      return count;
     } else {
-      multiply(newNumString.toString())
+      let product2 = product.toString();
+      multiplyDigits(product2)
     }
+
   }
-  if (initialTestResult === false) {
-    multiply(numString);
-  }
-  console.log(persistenceCount, 'final persistence count')
-  return persistenceCount
+
+  multiplyDigits(str78)
+
+  console.log(count);
+  return count;
+
 }
 
 persistence(999)
 
 
+///  Other Solutions to learn from ///
+
+function persistence2(num) {
+  var times = 0;
+
+  num = num.toString();
+
+  while (num.length > 1) {
+    times++;
+    num = num.split('').map(Number).reduce((a, b) => a * b).toString();
+  }
+
+  return times;
+}
 
 
- // if (numString.length === 1) { console.log(persistenceCount, 'final persistence count'); return persistenceCount };
+///  Other Solutions to learn from ///
 
-  // const test2 = numString[0] * numString[1]
-  // const test2str = test2.toString()
-  // if (test2str.length === 1) { console.log(persistenceCount, 'final persistence count'); return persistenceCount }
+const persistence = num => {
+  return `${num}`.length > 1
+    ? 1 + persistence(`${num}`.split('').reduce((a, b) => a * +b))
+    : 0;
+}
+
+///  Other Solutions to learn from ///
