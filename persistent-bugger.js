@@ -63,4 +63,3 @@ const persistence = num => {
     : 0;
 }
 
-///  Other Solutions to learn from ///
