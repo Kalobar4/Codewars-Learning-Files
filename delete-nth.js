@@ -14,7 +14,7 @@ const deleteNth = (arr, num) => {
 
   // create a function to get indices of repeat values > num
   const getAllIndices = (arr, val) => {
-    let indices = [], i, count3 = 0;
+    let indices = [], i, count3 = 0, spliceAdjust = 0;
     for (i = 0; i < arr.length; i++) {
       if (arr[i].toString() === val) {
         indices.push(i);
@@ -24,7 +24,10 @@ const deleteNth = (arr, num) => {
     console.log(arr)
     indices.map(e => {
       count3++
-      if (count3 > num) { arr.splice(e, 1) }
+      if (count3 > num) {
+        arr.splice((e - spliceAdjust), 1);
+        spliceAdjust++;
+      }
     })
     console.log(arr)
     return arr
@@ -56,7 +59,84 @@ const deleteNth = (arr, num) => {
 }
 
 // deleteNth([1, 1, 1, 1], 2) // return [1,1]
-deleteNth([20, 37, 20, 21], 1) // return [20,37,21]
-// deleteNth([20,37,20,21], 1), [20,37,21]
+// deleteNth([20, 37, 20, 21], 1) // return [20,37,21]
+deleteNth([1, 2, 3, 1, 1, 2, 1, 2, 3, 3, 2, 4, 5, 3, 1], 3) // Expected: [1, 2, 3, 1, 1, 2, 2, 3, 3, 4, 5]
 // deleteNth([1,1,3,3,7,2,2,2,2], 3), [1, 1, 3, 3, 7, 2, 2, 2]
 
+
+
+/// Other Solutions to Study ///
+
+function deleteNth2(arr, x) {
+  var cache = {};
+  return arr.filter(function (n) {
+    cache[n] = (cache[n] || 0) + 1;
+    return cache[n] <= x;
+  });
+}
+
+/// Other Solutions to Study ///
+function deleteNth3(arr, x) {
+  var count = {};
+  return arr.filter(function (a) {
+    count[a] = ~~count[a] + 1;
+    return count[a] <= x;
+  })
+}//z.
+
+/// Other Solutions to Study ///
+
+
+function deleteNth4(arr, x) {
+  return arr.reduce(function (a, v) {
+    return count(a, v) < x ? a.concat(v) : a;
+  }, []);
+}
+
+function count(arr, z) {
+  return arr.filter(function (q) { return z == q }).length;
+}
+
+/// Other Solutions to Study ///
+
+function deleteNth5(arr, x) {
+  while (true) {
+    for (var i = 0; i < arr.length; ++i) {
+      var count = 0;
+
+      for (var j = 0; j < arr.length; ++j) {
+
+        if (arr[i] === arr[j]) {
+          ++count;
+
+          if (count > x) {
+            arr.splice(j, 1);
+            break;
+          }
+        }
+      }
+      if (j !== arr.length) break;
+    }
+    if (i === arr.length) break;
+  }
+
+  return arr;
+}
+
+/// Other Solutions to Study ///
+
+const deleteNth6 = (a, x) => {
+  let m = {};
+  return a.filter(v => (m[v] = m[v] + 1 || 1) <= x);
+}
+
+
+/// Other Solutions to Study!!! ///
+
+function deleteNth7(arr, x) {
+  var obj = {}
+  return arr.filter(function (number) {
+    obj[number] = obj[number] ? obj[number] + 1 : 1
+    return obj[number] <= x
+  })
+}
