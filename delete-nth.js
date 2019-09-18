@@ -60,7 +60,7 @@ const deleteNth = (arr, num) => {
 
 // deleteNth([1, 1, 1, 1], 2) // return [1,1]
 // deleteNth([20, 37, 20, 21], 1) // return [20,37,21]
-deleteNth([1, 2, 3, 1, 1, 2, 1, 2, 3, 3, 2, 4, 5, 3, 1], 3) // Expected: [1, 2, 3, 1, 1, 2, 2, 3, 3, 4, 5]
+// deleteNth([1, 2, 3, 1, 1, 2, 1, 2, 3, 3, 2, 4, 5, 3, 1], 3) // Expected: [1, 2, 3, 1, 1, 2, 2, 3, 3, 4, 5]
 // deleteNth([1,1,3,3,7,2,2,2,2], 3), [1, 1, 3, 3, 7, 2, 2, 2]
 
 
@@ -134,9 +134,22 @@ const deleteNth6 = (a, x) => {
 /// Other Solutions to Study!!! ///
 
 function deleteNth7(arr, x) {
+  console.log(arr)
   var obj = {}
   return arr.filter(function (number) {
     obj[number] = obj[number] ? obj[number] + 1 : 1
+    console.log(obj[number] <= x)
     return obj[number] <= x
   })
+
+}
+
+deleteNth7([1, 2, 3, 1, 1, 2, 1, 2, 3, 3, 2, 4, 5, 3, 1], 3)
+
+/// Other Solutions to Study!!! ///
+
+function deleteNth8(arr, x) {
+  return arr.filter(
+    (e, i) => arr.slice(0, i).filter(e2 => e2 == e).length < x
+  );
 }
